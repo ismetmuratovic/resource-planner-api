@@ -43,7 +43,6 @@ public class AvailabilityResource {
 		Database.getEM().getTransaction().begin();
 		Database.getEM().merge(a);
 		Database.getEM().getTransaction().commit();
-		Database.getEM().close();
 		return "OK";
 	}
 	

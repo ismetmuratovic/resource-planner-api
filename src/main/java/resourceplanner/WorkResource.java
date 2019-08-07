@@ -63,7 +63,6 @@ public class WorkResource {
 		Database.getEM().getTransaction().begin();
 		Database.getEM().merge(w);
 		Database.getEM().getTransaction().commit();
-		Database.getEM().close();
 		return "OK";
 	}
 }
