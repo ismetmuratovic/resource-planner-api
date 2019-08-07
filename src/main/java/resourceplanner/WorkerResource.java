@@ -18,7 +18,6 @@ public class WorkerResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Worker> getWorkers(){
-		Database.connect();
 		Query q=Database.getEM().createQuery("SELECT w FROM Worker w");
 		return q.getResultList();
 	}
@@ -29,7 +28,6 @@ public class WorkerResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
 	public Worker getWorkerById(@PathParam("id") int workerId) {
-		Database.connect();
 		Query q=Database.getEM().createQuery("SELECT w FROM Worker w WHERE w.id="+workerId);
 		return (Worker) q.getSingleResult();
 	}

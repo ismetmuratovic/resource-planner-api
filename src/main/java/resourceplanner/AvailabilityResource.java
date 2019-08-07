@@ -20,7 +20,6 @@ public class AvailabilityResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Availability> getAvailabilities(){
-		Database.connect();
 		Query q=Database.getEM().createQuery("SELECT a FROM Availability a");
 		return q.getResultList();
 	}
@@ -31,7 +30,6 @@ public class AvailabilityResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/team/{id}/year/{year}")
 	public List<Availability> getAvailabilitiesForTeamAndYear(@PathParam("id") int teamId,@PathParam("year") int year){
-		Database.connect();
 		Query q=Database.getEM().createQuery("SELECT a FROM Availability a INNER JOIN a.worker.teams t WHERE t.id="+teamId+"AND YEAR(a.id.week)="+year);
 		return q.getResultList();
 	}
@@ -42,7 +40,6 @@ public class AvailabilityResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String putAvailability(Availability a) {
-		Database.connect();
 		Database.getEM().getTransaction().begin();
 		Database.getEM().merge(a);
 		Database.getEM().getTransaction().commit();

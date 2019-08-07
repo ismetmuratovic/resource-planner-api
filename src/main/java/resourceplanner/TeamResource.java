@@ -19,7 +19,6 @@ public class TeamResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Team> getTeams(){
-		Database.connect();
 		Query q=Database.getEM().createQuery("SELECT t FROM Team t");
 		return q.getResultList();
 	}
@@ -30,7 +29,6 @@ public class TeamResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
 	public Team getTeamById(@PathParam("id") int teamId) {
-		Database.connect();
 		Query q=Database.getEM().createQuery("SELECT t FROM Team t WHERE t.id="+teamId);
 		return (Team) q.getSingleResult();
 	}

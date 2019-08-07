@@ -20,7 +20,6 @@ public class WorkResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Work> getWorks(){
-		Database.connect();
 		Query q =Database.getEM().createQuery("SELECT w FROM Work w");
 		return q.getResultList();
 	}
@@ -31,7 +30,6 @@ public class WorkResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/worker/{id}")
 	public List<Work> getWorkByWorkerId(@PathParam("id") int workerId){
-		Database.connect();
 		Query q=Database.getEM().createQuery("SELECT w FROM Work w WHERE w.id.workerId="+workerId);
 		return q.getResultList();
 	}
@@ -42,7 +40,6 @@ public class WorkResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/project/{id}")
 	public List<Work> getWorkByProjectId(@PathParam("id") int projectId){
-		Database.connect();
 		Query q=Database.getEM().createQuery("SELECT w FROM Work w WHERE w.id.projectId="+projectId);
 		return q.getResultList();
 	}
@@ -53,7 +50,6 @@ public class WorkResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/team/{id}/year/{year}")
 	public List<Work> getWorkForTeamAndYear(@PathParam("id") int teamId,@PathParam("year") int year){
-		Database.connect();
 		Query q=Database.getEM().createQuery("SELECT w FROM Work w INNER JOIN w.worker.teams t WHERE t.id="+teamId+"AND YEAR(w.id.dateStart)="+year);
 		return q.getResultList();
 	}
@@ -64,7 +60,6 @@ public class WorkResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String putWork(Work w) {
-		Database.connect();
 		Database.getEM().getTransaction().begin();
 		Database.getEM().merge(w);
 		Database.getEM().getTransaction().commit();
