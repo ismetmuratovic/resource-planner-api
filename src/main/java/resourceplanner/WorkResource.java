@@ -60,7 +60,8 @@ public class WorkResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String putWork(Work w) {
-		Database.getEM().getTransaction().begin();
+		if(!Database.getEM().getTransaction().isActive())
+			Database.getEM().getTransaction().begin();
 		Database.getEM().merge(w);
 		Database.getEM().getTransaction().commit();
 		return "OK";

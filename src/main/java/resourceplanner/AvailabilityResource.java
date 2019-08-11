@@ -40,7 +40,8 @@ public class AvailabilityResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String putAvailability(Availability a) {
-		Database.getEM().getTransaction().begin();
+		if(!Database.getEM().getTransaction().isActive())
+			Database.getEM().getTransaction().begin();
 		Database.getEM().merge(a);
 		Database.getEM().getTransaction().commit();
 		return "OK";
